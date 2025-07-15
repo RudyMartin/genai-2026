@@ -127,4 +127,36 @@
 │ - Preview Output │       │ - Comment Drafting │
 └────────────----──┘       └──────────==────────┘
 ```
+Absolutely — here's a clear **Week-by-Week Breakdown** of **Key Outputs**, **per Agent**, for the unified **MVP1** plan:
+
+---
+
+## ✅ **MVP1 Key Outputs by Week**
+
+*Automated Documentation Preview Agent* + *Automated Jira-Support Triage Agent*
+
+| **Week** | **DocPreviewAgent (📄)**                                                                               | **JiraTriageAgent (🛠️)**                                                                           |
+| -------- | ------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------- |
+| **1**    | • Use cases defined (MRA, model plans, audit docs)<br>• Output spec: preview format, flags, highlights | • Target queues and routing rules confirmed<br>• Output spec: assignment logic, comment suggestions |
+| **2**    | • Ingestion script for PDFs/DOCX<br>• Text + metadata JSON structure                                   | • Jira API connector built<br>• Normalized ticket JSONs with comments, status, labels               |
+| **3**    | • `DocPreviewAgent` scaffold with DSPy or LangChain<br>• Modular chunking logic                        | • `JiraTriageAgent` scaffold<br>• Ticket data loader + preprocessing                                |
+| **4**    | • Titan v2 embedding of document chunks<br>• FAISS/pgVector index saved by doc type                    | • Titan v2 embedding of ticket history + body<br>• FAISS/pgVector index saved by issue type         |
+| **5**    | • Retrieval block returns top-k doc chunks<br>• Initial DSPy prompt: summarize + flag risks            | • Retrieval block returns similar past tickets<br>• Initial DSPy prompt: classify + assign + draft  |
+| **6**    | • Evaluation run: 10+ sample docs<br>• Logs: preview accuracy, risk flag quality                       | • Evaluation run: 30+ sample tickets<br>• Logs: routing accuracy, label match, comment usefulness   |
+| **7**    | • Preview interface (Streamlit/CLI)<br>• Output: HTML/JSON summary for each doc                        | • CLI/Streamlit UI to enter ticket ID<br>• Output: assignment, comment, escalation flag             |
+| **8**    | • Feedback buttons for: incorrect preview, missing risk<br>• Full context/output logging               | • Feedback logging: misroute, bad comment<br>• Run trace stored per ticket                          |
+| **9**    | • Internal pilot with 3–5 users<br>• Preview quality rated by doc type                                 | • Pilot live on test Jira queue<br>• Feedback: usefulness, error types, timing                      |
+| **10**   | • Hardened version deployed<br>• Optional: batch doc audit script + dashboard                          | • Agent live with retry logic<br>• Optional: auto-comment or label suggestions via API              |
+
+---
+
+### 🔁 Final Artifacts (End of Week 10)
+
+* 🧠 **Two modular agents**: `DocPreviewAgent`, `JiraTriageAgent`
+* 💾 **Two embedding stores**: documents vs. tickets
+* 🛠️ **Retrieval + DSPy pipelines** shared and abstracted
+* 📊 **Eval logs**, **feedback dashboard**, **pilot report**
+* 🔄 **Deployment-ready**: callable UI/API + reindex jobs
+
+
 
