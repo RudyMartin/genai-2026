@@ -1,162 +1,276 @@
-## ✅ **MVP1: Automated Text Intelligence Agents**
-
-### 🎯 Objective: Deploy two text-based agents that accelerate operational workflows
+# MVP1: Automated Text Intelligence Agents
+## 🎯 Objective: Deploy two text-based agents that accelerate operational workflows
 
 * **Agent 1:** 📄 **Documentation Preview Agent** – surface summaries, issues, and flags from risk-related documents.
 * **Agent 2:** 🛠️ **Jira Support Triage Agent** – route, tag, and comment on tickets based on historical and contextual patterns.
 
 ---
 
-## 🗂️ **Unified 10-Week MVP1 Action Plan**
+## 🚦 **Gate-Based 12-Week MVP1 Action Plan**
 
-### **🔹 Week 1 – MVP Kickoff**
+### **Phase 0: Foundation & Specification (Weeks 1-3)**
+**🛑 GATE 1: No development starts without complete specification sign-off**
 
-* Align with Sonia's team: define **risk doc types** (e.g., model plans, issue logs), and **Jira queues**.
-* Establish MVP1 success criteria (e.g., % triaged correctly, preview coverage, response time).
-* Confirm target platforms: S3, Bedrock, Jira API, internal Confluence.
+#### **Week 1 – Requirements Discovery**
+* **Stakeholder Alignment Sessions:**
+  - Sonia's team: Define exact risk document types (MRA, model plans, audit docs)
+  - Support team: Map current Jira queues, routing rules, escalation paths
+  - IT/Security: Confirm platform access (S3, Bedrock, Jira API, Confluence)
 
----
+* **Business Requirements Definition:**
+  - Document current manual process timelines
+  - Define success metrics with specific thresholds
+  - Identify failure scenarios and impact assessment
+  - Establish volume expectations (docs/tickets per day)
 
-### **🔹 Week 2 – Ingest & Normalize Inputs**
+#### **Week 2 – Technical Specification**
+* **Data Schema Definition:**
+  - Document standardized input formats (PDF, DOCX structure requirements)
+  - Jira field mapping and metadata extraction rules
+  - Output format specifications (preview structure, triage decisions)
 
-* Build ingestion module:
+* **Integration Requirements:**
+  - API contracts for all external systems
+  - Authentication and authorization requirements
+  - Error handling and fallback procedures
+  - Performance benchmarks and SLA definitions
 
-  * PDFs + DOCX → text chunks
-  * Jira API → ticket content + metadata
-* Normalize to common schema: `{"source_type": ..., "text": ..., "meta": {...}}`
+#### **Week 3 – Specification Validation & Sign-off**
+* **Stakeholder Review:**
+  - Requirements document review with all parties
+  - Technical architecture approval
+  - Resource allocation confirmation
+  - Risk assessment and mitigation plan
 
----
-
-### **🔹 Week 3 – MVP Agent Templates**
-
-* Draft shared `AgentBase()` class or wrapper (DSPy or LangChain):
-
-  * Handles chunking, embedding, retrieval, prompting, output formatting.
-* Create separate subclasses for:
-
-  * `DocPreviewAgent()`
-  * `JiraTriageAgent()`
-
----
-
-### **🔹 Week 4 – Embedding + Index**
-
-* Use **Bedrock Titan v2** or Claude v2 embeddings for both agents.
-* Create modular FAISS/pgVector indexer.
-* Enable per-agent reindexing (doc vs ticket context buckets).
-
----
-
-### **🔹 Week 5 – Retrieval + Prompting**
-
-* Create reusable retrieval block (by source type).
-* Write DSPy chains or prompt templates:
-
-  * For docs: highlight compliance risk, summarize preview
-  * For Jira: classify issue, assign owner, suggest comment
+* **🔐 GATE 1 DELIVERABLES:**
+  - [ ] Signed requirements document
+  - [ ] Technical architecture approved
+  - [ ] Data access permissions granted
+  - [ ] Success criteria agreed (with specific metrics)
+  - [ ] Testing plan finalized
 
 ---
 
-### **🔹 Week 6 – Agent Tuning & Sample Runs**
+### **Phase 1: Core Infrastructure (Weeks 4-5)**
+**🛑 GATE 2: No agent development without validated infrastructure**
 
-* Run both agents on test set:
+#### **Week 4 – Data Pipeline Development**
+* **Ingestion Module:**
+  - PDF/DOCX text extraction with error handling
+  - Jira API connector with rate limiting
+  - Data validation and quality checks
+  - Common schema normalization
 
-  * 10+ documents (doc preview)
-  * 30+ Jira tickets (triage)
-* Log: retrieved context, output, next action
-* Adjust few-shot examples + chunk sizes
+* **Infrastructure Setup:**
+  - Bedrock Titan v2 embedding service configuration
+  - FAISS/pgVector index architecture
+  - Logging and monitoring framework
 
----
+#### **Week 5 – Infrastructure Validation**
+* **System Testing:**
+  - Process sample documents through full pipeline
+  - Validate embedding quality and retrieval accuracy
+  - Test error handling with malformed inputs
+  - Benchmark performance against requirements
 
-### **🔹 Week 7 – MVP UI + API Integration**
-
-* Build simple UI (Streamlit or CLI):
-
-  * Upload or select doc → preview output
-  * Enter Jira ID → triage result
-* Add Slack/Jira API integration for testing updates
-
----
-
-### **🔹 Week 8 – Logging, Feedback, Audit Trail**
-
-* Add feedback flagging for:
-
-  * Incorrect preview
-  * Misrouted ticket
-* Log full run context: input, retrieved, output, user correction
-
----
-
-### **🔹 Week 9 – Internal Pilot**
-
-* Deploy both agents internally (passworded or local link).
-* Invite 3–5 testers from risk + support teams.
-* Gather evaluation:
-
-  * 📄 Document Agent: Preview relevance, usability
-  * 🛠️ Jira Agent: Routing accuracy, comment usefulness
+* **🔐 GATE 2 DELIVERABLES:**
+  - [ ] Data ingestion processing sample data successfully
+  - [ ] Embedding service producing consistent vectors
+  - [ ] Retrieval system returning relevant results
+  - [ ] Error handling and logging operational
+  - [ ] Performance benchmarks met
 
 ---
 
-### **🔹 Week 10 – Production Launch of MVP1**
+### **Phase 2: Agent Development (Weeks 6-8)**
+**🛑 GATE 3: No UI development without validated agent outputs**
 
-* Harden both agents:
+#### **Week 6 – Agent Framework**
+* **Shared Architecture:**
+  - `AgentBase()` class with DSPy/LangChain integration
+  - Modular chunking, embedding, retrieval, prompting
+  - Output formatting and validation
 
-  * Retry logic, missing data fallback, batch mode
-* Deploy final containerized version
-* Deliver internal dashboard or update report
-* MVP1 ✅ complete — ready for next-phase proposal
+* **Agent Scaffolding:**
+  - `DocPreviewAgent()` subclass structure
+  - `JiraTriageAgent()` subclass structure
+  - Prompt template framework
 
----
+#### **Week 7 – Agent Implementation**
+* **DocPreviewAgent:**
+  - Risk flagging logic implementation
+  - Preview generation with compliance focus
+  - Output formatting to specification
 
-## 🔗 MVP1 System Diagram
+* **JiraTriageAgent:**
+  - Ticket classification algorithms
+  - Assignment logic based on historical patterns
+  - Comment generation templates
 
-```
-       ┌───────────────────────────────┐
-       │         MVP1 Core Agent       │
-       │    (shared retrieval + LLM)   │
-       └────────────┬──────────────────┘
-                    │
-      ┌─────────────┴─────────────┐
-      ▼                           ▼
-┌───────────-───---┐       ┌─────────────--─────┐
-│ DocPreviewAgent  │       │ JiraTriageAgent    │
-│ - PDF → Chunks   │       │ - Ticket Text →    │
-│ - Risk Flagging  │       │   Class/Assign     │
-│ - Preview Output │       │ - Comment Drafting │
-└────────────----──┘       └──────────==────────┘
-```
-Absolutely — here's a clear **Week-by-Week Breakdown** of **Key Outputs**, **per Agent**, for the unified **MVP1** plan:
+#### **Week 8 – Agent Validation**
+* **Evaluation & Tuning:**
+  - Test on 10+ documents (preview agent)
+  - Test on 30+ Jira tickets (triage agent)
+  - Log context, outputs, and accuracy metrics
+  - Adjust prompts and few-shot examples
 
----
-
-## ✅ **MVP1 Key Outputs by Week**
-
-*Automated Documentation Preview Agent* + *Automated Jira-Support Triage Agent*
-
-| **Week** | **DocPreviewAgent (📄)**                                                                               | **JiraTriageAgent (🛠️)**                                                                           |
-| -------- | ------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------- |
-| **1**    | • Use cases defined (MRA, model plans, audit docs)<br>• Output spec: preview format, flags, highlights | • Target queues and routing rules confirmed<br>• Output spec: assignment logic, comment suggestions |
-| **2**    | • Ingestion script for PDFs/DOCX<br>• Text + metadata JSON structure                                   | • Jira API connector built<br>• Normalized ticket JSONs with comments, status, labels               |
-| **3**    | • `DocPreviewAgent` scaffold with DSPy or LangChain<br>• Modular chunking logic                        | • `JiraTriageAgent` scaffold<br>• Ticket data loader + preprocessing                                |
-| **4**    | • Titan v2 embedding of document chunks<br>• FAISS/pgVector index saved by doc type                    | • Titan v2 embedding of ticket history + body<br>• FAISS/pgVector index saved by issue type         |
-| **5**    | • Retrieval block returns top-k doc chunks<br>• Initial DSPy prompt: summarize + flag risks            | • Retrieval block returns similar past tickets<br>• Initial DSPy prompt: classify + assign + draft  |
-| **6**    | • Evaluation run: 10+ sample docs<br>• Logs: preview accuracy, risk flag quality                       | • Evaluation run: 30+ sample tickets<br>• Logs: routing accuracy, label match, comment usefulness   |
-| **7**    | • Preview interface (Streamlit/CLI)<br>• Output: HTML/JSON summary for each doc                        | • CLI/Streamlit UI to enter ticket ID<br>• Output: assignment, comment, escalation flag             |
-| **8**    | • Feedback buttons for: incorrect preview, missing risk<br>• Full context/output logging               | • Feedback logging: misroute, bad comment<br>• Run trace stored per ticket                          |
-| **9**    | • Internal pilot with 3–5 users<br>• Preview quality rated by doc type                                 | • Pilot live on test Jira queue<br>• Feedback: usefulness, error types, timing                      |
-| **10**   | • Hardened version deployed<br>• Optional: batch doc audit script + dashboard                          | • Agent live with retry logic<br>• Optional: auto-comment or label suggestions via API              |
+* **🔐 GATE 3 DELIVERABLES:**
+  - [ ] Both agents producing spec-compliant outputs
+  - [ ] Evaluation runs meeting minimum accuracy thresholds
+  - [ ] Stakeholder review of sample outputs completed
+  - [ ] Performance requirements satisfied
 
 ---
 
-### 🔁 Final Artifacts (End of Week 10)
+### **Phase 3: Integration & Testing (Weeks 9-11)**
+**🛑 GATE 4: No production deployment without complete system validation**
 
+#### **Week 9 – User Interface Development**
+* **UI Implementation:**
+  - Streamlit/CLI interface for document upload
+  - Jira ID input and triage result display
+  - Feedback collection mechanisms
+  - Admin dashboard for monitoring
+
+* **API Integration:**
+  - Slack notifications for escalations
+  - Jira API updates for ticket modifications
+  - Webhook handlers for real-time processing
+
+#### **Week 10 – System Integration & Testing**
+* **End-to-End Testing:**
+  - Full workflow validation
+  - Load testing with realistic volumes
+  - Security penetration testing
+  - Disaster recovery procedures
+
+* **Audit Trail Implementation:**
+  - Complete logging of all decisions
+  - Feedback tracking and analysis
+  - Performance monitoring dashboards
+  - Compliance reporting capabilities
+
+#### **Week 11 – Internal Pilot**
+* **Controlled Rollout:**
+  - Deploy to 3-5 internal testers
+  - Real-world testing with live data
+  - Feedback collection and analysis
+  - Issue identification and resolution
+
+* **🔐 GATE 4 DELIVERABLES:**
+  - [ ] Full end-to-end testing completed
+  - [ ] Security review passed
+  - [ ] Load testing within acceptable limits
+  - [ ] Rollback procedures validated
+  - [ ] Pilot feedback incorporated
+
+---
+
+### **Phase 4: Production Launch (Week 12)**
+
+#### **Week 12 – Production Deployment**
+* **Hardening & Launch:**
+  - Retry logic and error recovery
+  - Batch processing capabilities
+  - Containerized deployment
+  - Production monitoring setup
+
+* **Launch Deliverables:**
+  - Two production-ready agents
+  - Comprehensive documentation
+  - Maintenance runbooks
+  - Success metrics dashboard
+
+---
+
+## 🔄 **Revised Week-by-Week Outputs**
+
+| **Week** | **Phase** | **DocPreviewAgent (📄)** | **JiraTriageAgent (🛠️)** | **Gate Check** |
+|----------|-----------|---------------------------|---------------------------|----------------|
+| **1** | Requirements | Use cases defined, success criteria | Target queues, routing rules | Requirements gathering |
+| **2** | Specification | Data schema, output format | API contracts, field mapping | Technical spec complete |
+| **3** | Sign-off | Stakeholder approval | Resource allocation | **🔐 GATE 1** |
+| **4** | Infrastructure | Ingestion pipeline | Data normalization | Core services |
+| **5** | Validation | Pipeline testing | Performance benchmarks | **🔐 GATE 2** |
+| **6** | Framework | Agent scaffold | Base architecture | Development foundation |
+| **7** | Implementation | Risk flagging logic | Classification algorithms | Agent logic |
+| **8** | Testing | Evaluation runs | Accuracy validation | **🔐 GATE 3** |
+| **9** | UI/API | Preview interface | Triage dashboard | User experience |
+| **10** | Integration | End-to-end testing | System validation | Quality assurance |
+| **11** | Pilot | Internal testing | Feedback collection | **🔐 GATE 4** |
+| **12** | Production | Live deployment | Monitoring setup | **🚀 LAUNCH** |
+
+---
+
+## 🚨 **Critical Success Factors**
+
+### **Gate Enforcement**
+- **No exceptions** to gate requirements
+- **Written sign-off** required at each gate
+- **Rollback plan** if gate criteria not met
+- **Stakeholder availability** scheduled in advance
+
+### **Risk Mitigation**
+- **Daily standups** focused on gate blockers
+- **Weekly stakeholder demos** showing progress
+- **Continuous integration** with automated testing
+- **Documentation** of all decisions and changes
+
+### **Quality Assurance**
+- **Automated testing** at each development stage
+- **Code review** requirements for all changes
+- **Performance monitoring** throughout development
+- **Security scanning** integrated into pipeline
+
+---
+
+## 📊 **Success Metrics Dashboard**
+
+### **Agent Performance**
+- **Accuracy**: % of correct classifications/previews
+- **Coverage**: % of documents/tickets processed
+- **Response Time**: Average processing duration
+- **User Satisfaction**: Feedback scores from pilot
+
+### **Business Impact**
+- **Time Saved**: Reduction in manual processing
+- **Error Reduction**: Decrease in misrouted tickets
+- **Process Efficiency**: Throughput improvements
+- **Cost Savings**: Resource optimization metrics
+
+---
+
+## 🔁 **Final Deliverables (End of Week 12)**
+
+### **Core System Components**
 * 🧠 **Two modular agents**: `DocPreviewAgent`, `JiraTriageAgent`
-* 💾 **Two embedding stores**: documents vs. tickets
+* 💾 **Two embedding stores**: documents vs. tickets with proper indexing
 * 🛠️ **Retrieval + DSPy pipelines** shared and abstracted
-* 📊 **Eval logs**, **feedback dashboard**, **pilot report**
-* 🔄 **Deployment-ready**: callable UI/API + reindex jobs
+* 🔌 **API layer** with REST endpoints and webhook handlers
+* 🖥️ **User interfaces** (Streamlit dashboard + CLI tools)
+
+### **Operational Assets**
+* 📊 **Monitoring dashboards**: Real-time performance metrics
+* 📋 **Evaluation reports**: Accuracy, coverage, and performance analysis
+* 🔍 **Audit trails**: Complete logging and decision tracking
+* 📚 **Documentation**: Technical specs, user guides, maintenance runbooks
+* 🔄 **Deployment artifacts**: Containerized services + infrastructure-as-code
+
+### **Quality Assurance Materials**
+* ✅ **Test suites**: Unit, integration, and end-to-end testing
+* 📈 **Performance benchmarks**: Load testing results and SLA validation
+* 🛡️ **Security assessments**: Penetration testing and compliance reports
+* 🔧 **Maintenance procedures**: Backup, recovery, and troubleshooting guides
+* 📋 **Pilot feedback**: User acceptance testing results and recommendations
+
+### **Business Deliverables**
+* 📊 **Success metrics dashboard**: KPI tracking and ROI analysis
+* 📝 **Process documentation**: Updated workflows and procedures
+* 👥 **Training materials**: User onboarding and best practices
+* 🔮 **Roadmap recommendations**: Next phase development proposals
+* 💰 **Cost analysis**: Development investment and operational expenses
+
+This revised plan ensures proper specification before development begins, includes adequate testing phases, and provides clear gates to prevent scope creep and ensure quality delivery.
 
 
 
