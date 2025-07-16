@@ -154,13 +154,3 @@ graph TD
 > *Source: “KYC\_Onboarding\_Policy\_v2023.pdf”, Section 4.2*
 >
 > *\[This answer is provided for internal compliance review purposes only.]*
-
----
-
-### ✅ **Next Steps**
-
-* [ ] Bundle this into a project scaffold (repo structure + code templates)?
-* [ ] Want a Streamlit UI for demo/testing?
-* [ ] Generate Dockerfile / deployment YAML for rollout?
-
-Let me know how you'd like to expand: **codebase starter**, **deployment scripts**, or **curriculum integration**?
