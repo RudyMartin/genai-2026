@@ -30,6 +30,22 @@
 • Quality compromises under deadline pressure
 
 ---
+📐 Slide Format
+Layout: Blank layout (no default placeholders)
+
+Title: At the top — font size 32pt
+
+Text box: Right side — wraps text, starts 1.5 inches from top, size: 4 inches from left, 4 inches high, 24pt font
+
+Image: On the left side, always square (1:1), height 3.5 inches
+
+🎨 Design & Style
+Font: Calibri (clean and corporate)
+
+Colors: Neutral — black text, white background, grayscale if needed
+
+Images: Square JPEGs, no text inside images
+
 
 ## Slide 3: Pre-Development Specification Checklist
 
