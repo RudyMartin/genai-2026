@@ -1,4 +1,3 @@
----
 
 ### **🤖 PART 2: GenAI, Fairness & Explainability in Banking**
 
@@ -16,4 +15,3 @@
 
 > ✅ **Goal**: Apply fairness, explainability, and QA to traditional + generative models.
 
----
